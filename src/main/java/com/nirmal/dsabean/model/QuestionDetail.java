@@ -1,12 +1,40 @@
-package com.nirmal.dsabean.dto;
+package com.nirmal.dsabean.model;
 
-public class ProgramDetailDto {
+import javax.persistence.*;
+import java.time.Instant;
+
+@Entity
+@Table
+public class QuestionDetail {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private String questionTitle;
+
+    @Column
     private String questionUrl;
+
+    @Column
     private String answerUrl;
+
+    @Column
     private String conceptUrl;
+
+    @Lob
+    @Column
     private String hint;
+
+    @Column
+    private String username;
+
+    @Column
+    private Instant createdOn;
+
+    @Column
+    private Instant updatedOn;
 
     public Long getId() {
         return id;
@@ -54,5 +82,29 @@ public class ProgramDetailDto {
 
     public void setHint(String hint) {
         this.hint = hint;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Instant getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Instant createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Instant getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Instant updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }
