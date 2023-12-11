@@ -27,6 +27,7 @@ public class QuestionService {
 
     private QuestionDetail mapFromDtoToQuestionDetail(QuestionDetailDto questionDetailDto) {
         QuestionDetail questionDetail = new QuestionDetail();
+        questionDetail.setTopic(questionDetailDto.getTopic());
         questionDetail.setQuestionTitle(questionDetailDto.getQuestionTitle());
         questionDetail.setQuestionUrl(questionDetailDto.getQuestionUrl());
         questionDetail.setAnswerUrl(questionDetailDto.getAnswerUrl());
@@ -43,13 +44,18 @@ public class QuestionService {
         List<QuestionDetail> list = questionRepository.findAll();
         return list.stream().map(this::mapToDto).collect(Collectors.toList());
     }
+    public List<QuestionDetailDto> showAllQuestions(String topic) {
+        List<QuestionDetail> list = questionRepository.findAllByTopic(topic);
+        return list.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
 
     private QuestionDetailDto mapToDto(QuestionDetail questionDetail) {
         QuestionDetailDto dto = new QuestionDetailDto();
+        dto.setTopic(questionDetail.getTopic());
         dto.setQuestionTitle(questionDetail.getQuestionTitle());
         dto.setQuestionUrl(questionDetail.getQuestionUrl());
         dto.setConceptUrl(questionDetail.getConceptUrl());
-        dto.setAnswerUrl(questionDetail.getConceptUrl());
+        dto.setAnswerUrl(questionDetail.getAnswerUrl());
         dto.setHint(questionDetail.getHint());
         return dto;
     }

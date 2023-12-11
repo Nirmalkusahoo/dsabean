@@ -7,10 +7,14 @@ import java.time.Instant;
 @Table
 public class QuestionDetail {
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String topic;
+
+    @Id
     @Column
     private String questionTitle;
 
@@ -42,6 +46,14 @@ public class QuestionDetail {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getQuestionTitle() {

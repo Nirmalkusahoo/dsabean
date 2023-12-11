@@ -2,6 +2,7 @@ package com.nirmal.dsabean.dto;
 
 public class QuestionDetailDto {
     private Long id;
+    private String topic;
     private String questionTitle;
     private String questionUrl;
     private String answerUrl;
@@ -14,6 +15,14 @@ public class QuestionDetailDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getQuestionTitle() {

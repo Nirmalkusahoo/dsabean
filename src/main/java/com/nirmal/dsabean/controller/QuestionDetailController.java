@@ -27,6 +27,11 @@ public class QuestionDetailController {
         return new ResponseEntity<> (questionService.showAllQuestions(),HttpStatus.OK);
     }
 
+    @GetMapping("all/{topic}")
+    public ResponseEntity<List<QuestionDetailDto>> showAllQuestions(@PathVariable @RequestBody String topic){
+        return new ResponseEntity<>(questionService.showAllQuestions(topic), HttpStatus.OK);
+    }
+
     @GetMapping("/get/{id}")
     public ResponseEntity<QuestionDetailDto> getSingleQuestion(@PathVariable @RequestBody Long id){
         return new ResponseEntity<> (questionService.readSingleQuestion(id),HttpStatus.OK);
