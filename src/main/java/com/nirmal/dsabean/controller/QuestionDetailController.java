@@ -2,6 +2,7 @@ package com.nirmal.dsabean.controller;
 
 import com.nirmal.dsabean.constants.Topic;
 import com.nirmal.dsabean.dto.QuestionDetailDto;
+import com.nirmal.dsabean.dto.TopicDto;
 import com.nirmal.dsabean.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,8 +42,7 @@ public class QuestionDetailController {
     }
 
     @GetMapping("/topics")
-    public ResponseEntity<List<String>> getTopicList() {
-        List<String> topicList = Arrays.stream(Topic.values()).map(Topic::getTopic).collect(Collectors.toList());
-        return new ResponseEntity<>(topicList, HttpStatus.OK);
+    public ResponseEntity<List<TopicDto>> getTopicList() {
+        return new ResponseEntity<>(Topic.getList(), HttpStatus.OK);
     }
 }
