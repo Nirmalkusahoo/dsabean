@@ -10,4 +10,5 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<QuestionDetail, Long> {
     boolean existsByQuestionTitle(String questionTitle);
     List<QuestionDetail> findAllByTopic(String topic);
+    QuestionDetail findByNumber(Integer number);
 }

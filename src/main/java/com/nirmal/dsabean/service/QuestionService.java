@@ -28,6 +28,7 @@ public class QuestionService {
     private QuestionDetail mapFromDtoToQuestionDetail(QuestionDetailDto questionDetailDto) {
         QuestionDetail questionDetail = new QuestionDetail();
         questionDetail.setTopic(questionDetailDto.getTopic());
+        questionDetail.setNumber(questionDetailDto.getNumber());
         questionDetail.setQuestionTitle(questionDetailDto.getQuestionTitle());
         questionDetail.setQuestionUrl(questionDetailDto.getQuestionUrl());
         questionDetail.setAnswerUrl(questionDetailDto.getAnswerUrl());
@@ -44,6 +45,7 @@ public class QuestionService {
         List<QuestionDetail> list = questionRepository.findAll();
         return list.stream().map(this::mapToDto).collect(Collectors.toList());
     }
+
     public List<QuestionDetailDto> showAllQuestions(String topic) {
         List<QuestionDetail> list = questionRepository.findAllByTopic(topic);
         return list.stream().map(this::mapToDto).collect(Collectors.toList());
@@ -53,6 +55,7 @@ public class QuestionService {
         QuestionDetailDto dto = new QuestionDetailDto();
         dto.setTopic(questionDetail.getTopic());
         dto.setQuestionTitle(questionDetail.getQuestionTitle());
+        dto.setNumber(questionDetail.getNumber());
         dto.setQuestionUrl(questionDetail.getQuestionUrl());
         dto.setConceptUrl(questionDetail.getConceptUrl());
         dto.setAnswerUrl(questionDetail.getAnswerUrl());
@@ -60,8 +63,8 @@ public class QuestionService {
         return dto;
     }
 
-    public QuestionDetailDto readSingleQuestion(Long id) {
-        QuestionDetail questionDetail = questionRepository.findById(id).orElseThrow(() -> new QuestionNotFoundException("For id " + id));
+    public QuestionDetailDto readSingleQuestion(Integer number) {
+        QuestionDetail questionDetail = questionRepository.findByNumber(number);
         return mapToDto(questionDetail);
     }
 }

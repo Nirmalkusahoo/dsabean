@@ -14,6 +14,9 @@ public class QuestionDetail {
     @Column
     private String topic;
 
+    @Column
+    private Integer number;
+
     @Id
     @Column
     private String questionTitle;
@@ -54,6 +57,14 @@ public class QuestionDetail {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public String getQuestionTitle() {
