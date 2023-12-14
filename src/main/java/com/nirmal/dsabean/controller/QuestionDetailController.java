@@ -1,17 +1,16 @@
 package com.nirmal.dsabean.controller;
 
+import com.nirmal.dsabean.constants.ItemStatus;
 import com.nirmal.dsabean.constants.Topic;
+import com.nirmal.dsabean.dto.EnUserNameDto;
 import com.nirmal.dsabean.dto.QuestionDetailDto;
-import com.nirmal.dsabean.dto.TopicDto;
 import com.nirmal.dsabean.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -42,7 +41,12 @@ public class QuestionDetailController {
     }
 
     @GetMapping("/topics")
-    public ResponseEntity<List<TopicDto>> getTopicList() {
+    public ResponseEntity<List<EnUserNameDto>> getTopicList() {
         return new ResponseEntity<>(Topic.getList(), HttpStatus.OK);
+    }
+
+    @GetMapping("/allstatus")
+    public ResponseEntity<List<EnUserNameDto>> getAllStatus() {
+        return new ResponseEntity<>(ItemStatus.getList(), HttpStatus.OK);
     }
 }

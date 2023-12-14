@@ -1,7 +1,7 @@
 package com.nirmal.dsabean.constants;
 
 
-import com.nirmal.dsabean.dto.TopicDto;
+import com.nirmal.dsabean.dto.EnUserNameDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +31,10 @@ public enum Topic {
         return topic;
     }
 
-    public static List<TopicDto> getList() {
-        List<TopicDto> list = new ArrayList<>();
+    public static List<EnUserNameDto> getList() {
+        List<EnUserNameDto> list = new ArrayList<>();
         for (Topic value : Topic.values()) {
-            list.add(new TopicDto(value.name(), value.getTopic()));
+            list.add(new EnUserNameDto(value.name(), value.getTopic()));
         }
         return list;
     }
