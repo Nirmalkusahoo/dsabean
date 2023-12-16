@@ -2,6 +2,7 @@ package com.nirmal.dsabean.model;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table
@@ -26,6 +27,10 @@ public class QuestionDetail {
 
     @Column
     private String answerUrl;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="answer_details")
+    private List<AnswerDetail> answerDetails;
 
     @Column
     private String conceptUrl;
@@ -129,5 +134,13 @@ public class QuestionDetail {
 
     public void setUpdatedOn(Instant updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public List<AnswerDetail> getAnswerDetails() {
+        return answerDetails;
+    }
+
+    public void setAnswerDetails(List<AnswerDetail> answerDetails) {
+        this.answerDetails = answerDetails;
     }
 }

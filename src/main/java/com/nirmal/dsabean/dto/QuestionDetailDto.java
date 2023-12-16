@@ -1,5 +1,7 @@
 package com.nirmal.dsabean.dto;
 
+import java.util.List;
+
 public class QuestionDetailDto {
     private Long id;
     private String topic;
@@ -9,6 +11,8 @@ public class QuestionDetailDto {
     private String answerUrl;
     private String conceptUrl;
     private String hint;
+
+    private List<AnswerDetailDto> answerDetails;
 
     public Long getId() {
         return id;
@@ -72,5 +76,13 @@ public class QuestionDetailDto {
 
     public void setHint(String hint) {
         this.hint = hint;
+    }
+
+    public List<AnswerDetailDto> getAnswerDetails() {
+        return answerDetails;
+    }
+
+    public void setAnswerDetails(List<AnswerDetailDto> answerDetails) {
+        this.answerDetails = answerDetails;
     }
 }

@@ -34,8 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+        String allowedResources = "/api/questions/**"; // TODO Need to remove this
         httpSecurity.csrf().disable()
                 .authorizeRequests()
+                .antMatchers(allowedResources)
+                .permitAll()
                 .antMatchers("/api/auth/**")
                 .permitAll()
                 .anyRequest()

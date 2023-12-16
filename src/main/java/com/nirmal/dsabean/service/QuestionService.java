@@ -1,7 +1,8 @@
 package com.nirmal.dsabean.service;
 
+import com.nirmal.dsabean.dto.AnswerDetailDto;
 import com.nirmal.dsabean.dto.QuestionDetailDto;
-import com.nirmal.dsabean.exception.QuestionNotFoundException;
+import com.nirmal.dsabean.model.AnswerDetail;
 import com.nirmal.dsabean.model.QuestionDetail;
 import com.nirmal.dsabean.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +40,20 @@ public class QuestionService {
 
         questionDetail.setUsername(user.getUsername());
         questionDetail.setCreatedOn(Instant.now());
+
+        List<AnswerDetail> answerList = new ArrayList<>();
+        for (AnswerDetailDto obj : questionDetailDto.getAnswerDetails()) {
+            answerList.add(mapFromDtoToAnswerDetail(obj));
+        }
+        questionDetail.setAnswerDetails(answerList);
         return questionDetail;
+    }
+
+    private AnswerDetail mapFromDtoToAnswerDetail(AnswerDetailDto answerDetailDto) {
+        AnswerDetail answerDetail = new AnswerDetail();
+        answerDetail.setLevel(answerDetailDto.getLevel());
+        answerDetail.setUrl(answerDetailDto.getUrl());
+        return answerDetail;
     }
 
     public List<QuestionDetailDto> showAllQuestions() {
@@ -60,7 +75,20 @@ public class QuestionService {
         dto.setConceptUrl(questionDetail.getConceptUrl());
         dto.setAnswerUrl(questionDetail.getAnswerUrl());
         dto.setHint(questionDetail.getHint());
+
+        List<AnswerDetailDto> answerList = new ArrayList<>();
+        for (AnswerDetail obj : questionDetail.getAnswerDetails()) {
+            answerList.add(mapToAnswerDto(obj));
+        }
+        dto.setAnswerDetails(answerList);
         return dto;
+    }
+
+    private AnswerDetailDto mapToAnswerDto(AnswerDetail answerDetail) {
+        AnswerDetailDto answerDetailDto = new AnswerDetailDto();
+        answerDetailDto.setLevel(answerDetail.getLevel());
+        answerDetailDto.setUrl(answerDetail.getUrl());
+        return answerDetailDto;
     }
 
     public QuestionDetailDto readSingleQuestion(Integer number) {
