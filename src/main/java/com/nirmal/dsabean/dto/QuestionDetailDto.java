@@ -4,7 +4,7 @@ import java.util.List;
 
 public class QuestionDetailDto {
     private Long id;
-    private String topic;
+    private List<String> topic;
     private Integer number;
     private String questionTitle;
     private String questionUrl;
@@ -22,11 +22,11 @@ public class QuestionDetailDto {
         this.id = id;
     }
 
-    public String getTopic() {
+    public List<String> getTopic() {
         return topic;
     }
 
-    public void setTopic(String topic) {
+    public void setTopic(List<String> topic) {
         this.topic = topic;
     }
 

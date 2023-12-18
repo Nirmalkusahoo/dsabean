@@ -10,6 +10,7 @@ public enum Topic {
     Array("Array"),
     Recursion("Recursion"),
     String("String"),
+    BinarySearch("Binary Search"),
     SlidingWindow("Sliding Window"),
     Stack("Stack"),
     Tree("Tree"),

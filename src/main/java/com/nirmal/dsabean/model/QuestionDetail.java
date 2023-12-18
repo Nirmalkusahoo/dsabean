@@ -12,8 +12,9 @@ public class QuestionDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String topic;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_detail.topic")
+    private List<Topic> topic;
 
     @Column
     private Integer number;
@@ -56,13 +57,6 @@ public class QuestionDetail {
         this.id = id;
     }
 
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
 
     public Integer getNumber() {
         return number;
@@ -142,5 +136,13 @@ public class QuestionDetail {
 
     public void setAnswerDetails(List<AnswerDetail> answerDetails) {
         this.answerDetails = answerDetails;
+    }
+
+    public List<Topic> getTopic() {
+        return topic;
+    }
+
+    public void setTopic(List<Topic> topic) {
+        this.topic = topic;
     }
 }

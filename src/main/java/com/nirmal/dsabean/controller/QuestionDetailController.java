@@ -25,6 +25,11 @@ public class QuestionDetailController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/save")
+    public ResponseEntity addAllQuestion(@RequestBody List<QuestionDetailDto> questionDetailDtoList) {
+        questionService.addAllQuestion(questionDetailDtoList);
+        return new ResponseEntity(HttpStatus.OK);
+    }
     @GetMapping("/all")
     public ResponseEntity<List<QuestionDetailDto>> showAllQuestions() {
         return new ResponseEntity<>(questionService.showAllQuestions(), HttpStatus.OK);

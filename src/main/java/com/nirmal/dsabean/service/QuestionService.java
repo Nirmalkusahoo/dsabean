@@ -4,6 +4,7 @@ import com.nirmal.dsabean.dto.AnswerDetailDto;
 import com.nirmal.dsabean.dto.QuestionDetailDto;
 import com.nirmal.dsabean.model.AnswerDetail;
 import com.nirmal.dsabean.model.QuestionDetail;
+import com.nirmal.dsabean.model.Topic;
 import com.nirmal.dsabean.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -26,10 +27,17 @@ public class QuestionService {
         QuestionDetail questionDetail = mapFromDtoToQuestionDetail(questionDetailDto);
         questionRepository.save(questionDetail);
     }
+    public void addAllQuestion(List<QuestionDetailDto> dtoList) {
+        List<QuestionDetail> list= new ArrayList<>();
+        for (QuestionDetailDto dto:dtoList){
+           list.add(mapFromDtoToQuestionDetail(dto));
+        }
+        questionRepository.saveAll(list);
+    }
 
     private QuestionDetail mapFromDtoToQuestionDetail(QuestionDetailDto questionDetailDto) {
         QuestionDetail questionDetail = new QuestionDetail();
-        questionDetail.setTopic(questionDetailDto.getTopic());
+
         questionDetail.setNumber(questionDetailDto.getNumber());
         questionDetail.setQuestionTitle(questionDetailDto.getQuestionTitle());
         questionDetail.setQuestionUrl(questionDetailDto.getQuestionUrl());
@@ -46,6 +54,7 @@ public class QuestionService {
             answerList.add(mapFromDtoToAnswerDetail(obj));
         }
         questionDetail.setAnswerDetails(answerList);
+        setTopic(questionDetailDto.getTopic(), questionDetail);
         return questionDetail;
     }
 
@@ -56,19 +65,26 @@ public class QuestionService {
         return answerDetail;
     }
 
+    private void setTopic(List<String> topics, QuestionDetail questionDetail) {
+        List<Topic> list = new ArrayList<>();
+        for (String topic : topics) {
+            list.add(new Topic(topic));
+        }
+        questionDetail.setTopic(list);
+    }
+
     public List<QuestionDetailDto> showAllQuestions() {
         List<QuestionDetail> list = questionRepository.findAll();
         return list.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     public List<QuestionDetailDto> showAllQuestions(String topic) {
-        List<QuestionDetail> list = questionRepository.findAllByTopic(topic);
+        List<QuestionDetail> list = questionRepository.findByTopicTopicName(topic);
         return list.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     private QuestionDetailDto mapToDto(QuestionDetail questionDetail) {
         QuestionDetailDto dto = new QuestionDetailDto();
-        dto.setTopic(questionDetail.getTopic());
         dto.setQuestionTitle(questionDetail.getQuestionTitle());
         dto.setNumber(questionDetail.getNumber());
         dto.setQuestionUrl(questionDetail.getQuestionUrl());
@@ -81,6 +97,7 @@ public class QuestionService {
             answerList.add(mapToAnswerDto(obj));
         }
         dto.setAnswerDetails(answerList);
+        setTopicToDto(questionDetail.getTopic(), dto);
         return dto;
     }
 
@@ -89,6 +106,12 @@ public class QuestionService {
         answerDetailDto.setLevel(answerDetail.getLevel());
         answerDetailDto.setUrl(answerDetail.getUrl());
         return answerDetailDto;
+    }
+
+    private void setTopicToDto(List<Topic> topicList, QuestionDetailDto dto) {
+        List<String> list = new ArrayList<>();
+        for (Topic topic : topicList) list.add(topic.getTopicName());
+        dto.setTopic(list);
     }
 
     public QuestionDetailDto readSingleQuestion(Integer number) {
