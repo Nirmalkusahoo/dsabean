@@ -27,10 +27,11 @@ public class QuestionService {
         QuestionDetail questionDetail = mapFromDtoToQuestionDetail(questionDetailDto);
         questionRepository.save(questionDetail);
     }
+
     public void addAllQuestion(List<QuestionDetailDto> dtoList) {
-        List<QuestionDetail> list= new ArrayList<>();
-        for (QuestionDetailDto dto:dtoList){
-           list.add(mapFromDtoToQuestionDetail(dto));
+        List<QuestionDetail> list = new ArrayList<>();
+        for (QuestionDetailDto dto : dtoList) {
+            list.add(mapFromDtoToQuestionDetail(dto));
         }
         questionRepository.saveAll(list);
     }
@@ -49,11 +50,7 @@ public class QuestionService {
         questionDetail.setUsername(user.getUsername());
         questionDetail.setCreatedOn(Instant.now());
 
-        List<AnswerDetail> answerList = new ArrayList<>();
-        for (AnswerDetailDto obj : questionDetailDto.getAnswerDetails()) {
-            answerList.add(mapFromDtoToAnswerDetail(obj));
-        }
-        questionDetail.setAnswerDetails(answerList);
+        setAnswerDetails(questionDetailDto, questionDetail);
         setTopic(questionDetailDto.getTopic(), questionDetail);
         return questionDetail;
     }
@@ -63,6 +60,15 @@ public class QuestionService {
         answerDetail.setLevel(answerDetailDto.getLevel());
         answerDetail.setUrl(answerDetailDto.getUrl());
         return answerDetail;
+    }
+
+    private void setAnswerDetails(QuestionDetailDto questionDetailDto, QuestionDetail questionDetail) {
+        if (null == questionDetailDto.getAnswerDetails()) return;
+        List<AnswerDetail> answerList = new ArrayList<>();
+        for (AnswerDetailDto obj : questionDetailDto.getAnswerDetails()) {
+            answerList.add(mapFromDtoToAnswerDetail(obj));
+        }
+        questionDetail.setAnswerDetails(answerList);
     }
 
     private void setTopic(List<String> topics, QuestionDetail questionDetail) {

@@ -20,7 +20,9 @@ public enum Topic {
     DynamicProgramming("Dynamic Programming"),
     Graph("Graph"),
     Trie("Trie"),
-    Design("Design");
+    Design("Design"),
+    SegmentTree("Segment Tree"),
+    Greedy("Greedy");
 
     private String topic;
 
